@@ -1,0 +1,209 @@
+body {
+  font:
+    14px/140% Arial,
+    sans-serif;
+  background: black;
+  color: white;
+  overflow: hidden;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  touch-action: none;
+}
+
+#loading {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  right: 0;
+  text-align: center;
+  margin-top: -8px;
+  pointer-events: none;
+}
+
+#brand {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 20px;
+  padding-right: 230px; /* Clear of the physics panel */
+  pointer-events: none;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
+
+#brand h1 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: 0.02em;
+}
+
+#brand p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+#physics-controls {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 190px;
+  padding: 12px 14px 14px;
+  background: rgba(10, 20, 30, 0.55);
+  backdrop-filter: blur(6px);
+  border-radius: 14px;
+}
+
+#physics-controls h2 {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+.slider {
+  display: block;
+}
+
+.slider + .slider {
+  margin-top: 12px;
+}
+
+.slider-caption {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.slider-caption em {
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+  color: #7fd0f2;
+}
+
+.slider input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 4px;
+  margin: 0;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.22);
+  cursor: pointer;
+}
+
+.slider input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 50%;
+  background: #2f9fd6;
+}
+
+.slider input[type='range']::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 50%;
+  background: #2f9fd6;
+}
+
+#tube-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.control-group {
+  display: flex;
+  gap: 8px;
+  background: rgba(10, 20, 30, 0.55);
+  backdrop-filter: blur(6px);
+  padding: 8px;
+  border-radius: 14px;
+  pointer-events: auto;
+}
+
+.tube-btn,
+.pause-btn {
+  font: inherit;
+  font-weight: 600;
+  font-size: 13px;
+  color: white;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    transform 0.1s ease;
+  pointer-events: auto;
+}
+
+.tube-btn:hover,
+.pause-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.tube-btn:active,
+.pause-btn:active {
+  transform: scale(0.96);
+}
+
+.tube-btn.active {
+  background: #2f9fd6;
+  border-color: #2f9fd6;
+}
+
+.pause-btn {
+  background: rgba(10, 20, 30, 0.55);
+  backdrop-filter: blur(6px);
+  border-radius: 14px;
+}
+
+.pause-btn.active {
+  background: #d64a2f;
+  border-color: #d64a2f;
+}
+
+@media (max-width: 600px) {
+  #brand {
+    padding-right: 20px;
+  }
+
+  #physics-controls {
+    top: auto;
+    bottom: 80px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+  }
+
+  #tube-controls {
+    bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .tube-btn,
+  .pause-btn {
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+}

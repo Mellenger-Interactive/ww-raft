@@ -1,0 +1,351 @@
+/*
+ * TubePickerBlock styles. Everything is scoped under .tube-picker so it can be
+ * dropped into any page.
+ *
+ * Tokens mirror whitewaterwest.com's own CSS variables (--color-blue-800,
+ * --color-teal-800, --roundedLvl*, etc.). Fonts: the live site uses
+ * futura-pt (headings/buttons, Adobe Fonts) and Avenir (body). Those are
+ * licensed, so the stacks fall back to macOS system Futura/Avenir, then the
+ * free look-alikes Jost and Nunito Sans (loaded in tube-picker.html).
+ */
+.tube-picker {
+  /* WhiteWater palette */
+  --ww-navy: #1c355e; /* --color-blue-800: text, headings */
+  --ww-teal-dark: #037481; /* --color-teal-800: buttons, active */
+  --ww-teal: #48c1bb; /* --color-teal-400 */
+  --ww-blue: #3db3e3; /* --color-blue-400 */
+  --ww-yellow: #f9e346; /* --color-yellow */
+  --ww-grey-100: #f2f2f2;
+  --ww-grey-300: #d2d3d4;
+
+  --tp-ink: var(--ww-navy);
+  --tp-muted: rgba(28, 53, 94, 0.75);
+  --tp-accent: var(--ww-teal-dark);
+  --tp-accent-soft: #e6f5f4;
+  --tp-border: var(--ww-grey-300);
+  --tp-surface: #ffffff;
+  --tp-radius: 40px; /* --roundedLvl1 */
+  --tp-radius-card: 24px; /* --roundedLvl3 */
+  /* Framed media: teal outer ring + white inner mat, as on whitewaterwest.com */
+  --tp-frame-color: var(--ww-teal);
+  --tp-frame-width: 10px;
+  --tp-frame-gap: 10px;
+  --tp-media-radius: 40px; /* outer corner */
+  --tp-media-inner-radius: 20px; /* image corner */
+
+  --tp-font-heading: futura-pt, 'Futura PT', Futura, Jost, 'Century Gothic', sans-serif;
+  --tp-font-body: Avenir, 'Avenir Next', 'Nunito Sans', 'Segoe UI', sans-serif;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(24px, 5vw, 72px) 16px;
+  color: var(--tp-ink);
+  font-family: var(--tp-font-body);
+  line-height: 1.35;
+}
+
+.tube-picker--media-right .tp-media {
+  order: 2;
+}
+
+/* ---- Media panel ---------------------------------------------------- */
+.tp-media {
+  aspect-ratio: 1 / 1;
+  box-sizing: border-box;
+  padding: var(--tp-frame-gap);
+  border: var(--tp-frame-width) solid var(--tp-frame-color);
+  border-radius: var(--tp-media-radius);
+  background: #fff;
+}
+
+.tp-media-inner {
+  position: relative;
+  height: 100%;
+  border-radius: var(--tp-media-inner-radius);
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 40%, #2b5a86, var(--ww-navy));
+  isolation: isolate; /* keep the canvas clipped to the rounded corners */
+}
+
+.tp-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.tp-canvas canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  touch-action: none;
+}
+
+.tp-loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.tp-loading span {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  border-top-color: var(--ww-teal);
+  animation: tp-spin 0.9s linear infinite;
+}
+
+.tp-media.is-ready .tp-loading {
+  opacity: 0;
+}
+
+.tp-media.is-error .tp-loading span {
+  display: none;
+}
+
+.tp-hint {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  margin: 0;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(28, 53, 94, 0.7);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 15px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.3s;
+}
+
+.tp-media.is-ready .tp-hint {
+  opacity: 1;
+}
+
+@keyframes tp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---- Content -------------------------------------------------------- */
+.tp-eyebrow {
+  margin: 0 0 8px;
+  font-family: var(--tp-font-heading);
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--tp-ink);
+}
+
+.tp-heading {
+  margin: 0 0 12px;
+  font-family: var(--tp-font-heading);
+  font-weight: 500;
+  font-size: clamp(28px, 3vw, 36px);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.tp-intro {
+  margin: 0 0 24px;
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--tp-ink);
+  max-width: 44ch;
+}
+
+.tp-options {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.tp-option {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: center;
+  padding: 16px 18px;
+  border: 2px solid var(--tp-border);
+  border-radius: var(--tp-radius-card);
+  background: var(--tp-surface);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    transform 0.1s ease;
+}
+
+.tp-option:hover {
+  border-color: color-mix(in srgb, var(--tp-accent) 50%, var(--tp-border));
+}
+
+.tp-option:active {
+  transform: scale(0.99);
+}
+
+.tp-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tp-option:has(input:checked) {
+  border-color: var(--tp-accent);
+  background: var(--tp-accent-soft);
+}
+
+.tp-option:has(input:focus-visible) {
+  outline: 3px solid var(--tp-accent);
+  outline-offset: 3px;
+}
+
+.tp-option-count {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--tp-accent-soft);
+  color: var(--tp-accent);
+  font-family: var(--tp-font-heading);
+  font-size: 20px;
+  font-weight: 600;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.tp-option:has(input:checked) .tp-option-count {
+  background: var(--tp-accent);
+  color: #fff;
+}
+
+.tp-option-body {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.tp-option-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  font-family: var(--tp-font-heading);
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.tp-option-riders {
+  font-family: var(--tp-font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--tp-muted);
+}
+
+.tp-option-desc {
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--tp-muted);
+}
+
+.tp-option-rides {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--tp-muted);
+}
+
+.tp-option-rides em {
+  font-style: normal;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--tp-border);
+  background: var(--tp-surface);
+  color: var(--tp-ink);
+}
+
+.tp-icon {
+  fill: none;
+  stroke: var(--ww-teal);
+  stroke-width: 2.5;
+}
+
+.tp-icon-dot {
+  fill: var(--ww-teal);
+  stroke: none;
+}
+
+.tp-cta {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 14px 28px;
+  border-radius: 9999px;
+  background: var(--ww-teal-dark);
+  color: #fff;
+  font-family: var(--tp-font-heading);
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.tp-cta:hover {
+  background: var(--ww-navy);
+}
+
+/* ---- Responsive ----------------------------------------------------- */
+@media (max-width: 860px) {
+  .tube-picker {
+    grid-template-columns: 1fr;
+  }
+
+  .tube-picker--media-right .tp-media {
+    order: 0;
+  }
+
+  .tp-media {
+    aspect-ratio: 4 / 3;
+    --tp-frame-width: 6px;
+    --tp-frame-gap: 6px;
+    --tp-media-radius: 24px; /* --roundedLvl1Mobile */
+    --tp-media-inner-radius: 14px;
+  }
+
+  .tp-icon {
+    display: none;
+  }
+
+  .tp-option {
+    grid-template-columns: auto 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tp-loading span {
+    animation-duration: 3s;
+  }
+}
