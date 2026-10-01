@@ -9,8 +9,10 @@ export default defineConfig(({ command }) => ({
   build: {
     rollupOptions: {
       input: {
+        // The tube picker block is the home page; the original full-screen
+        // demo (with the physics sliders) lives at demo.html.
         main: 'index.html',
-        tubePicker: 'tube-picker.html',
+        demo: 'demo.html',
       },
     },
   },

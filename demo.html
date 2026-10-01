@@ -1,0 +1,35 @@
+<!--
+Waterslide Tube Preview - Proof of Concept
+
+Shows single/double/triple inner tubes dropping into a glass-walled cube of
+water, for previewing a waterslide company's tube product lineup.
+
+Water simulation/rendering built on jeantimex's Three.js port of Evan
+Wallace's WebGL Water demo: https://github.com/jeantimex/threejs-water
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title>Tube Preview</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <div id="loading">Loading...</div>
+
+    <header id="brand">
+      <h1>Waterslide Co.</h1>
+      <p>Tube Preview — drag to orbit, click the water to splash</p>
+    </header>
+
+    <aside id="physics-controls">
+      <h2>Physics</h2>
+    </aside>
+
+    <div id="tube-controls"></div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

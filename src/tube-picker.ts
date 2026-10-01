@@ -1,4 +1,4 @@
-/** Demo entry for tube-picker.html — mounts the TubePickerBlock page component. */
+/** Demo entry for index.html (the home page) — mounts the TubePickerBlock page component. */
 import { mountTubePicker } from './blocks/TubePickerBlock';
 
 mountTubePicker(document.getElementById('tube-picker')!, {
